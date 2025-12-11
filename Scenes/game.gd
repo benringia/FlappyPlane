@@ -5,7 +5,11 @@ extends Node
 @onready var upper_spawn: Marker2D = $UpperSpawn
 @onready var lower_spawn: Marker2D = $LowerSpawn
 
+
 const PIPES = preload("uid://dnokfmil33cmm")
+const MAIN = preload("uid://cxt5x3kdbarw8")
+
+
 
 
 

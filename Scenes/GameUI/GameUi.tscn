@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://xmypda70nyde"]
+
+[ext_resource type="Script" uid="uid://bbqsf4d27f2y0" path="res://Scenes/GameUI/game_ui.gd" id="1_81r78"]
+[ext_resource type="FontFile" uid="uid://dhunynepiqid2" path="res://Assets/fonts/LuckiestGuy-Regular.ttf" id="1_diq3n"]
+[ext_resource type="AudioStream" uid="uid://by3llquanhoi3" path="res://Assets/audio/game_over.wav" id="3_556m7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_81r78"]
+line_spacing = 0.0
+font = ExtResource("1_diq3n")
+font_size = 32
+font_color = Color(1, 0.44705883, 0.019607844, 1)
+outline_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_556m7"]
+line_spacing = 0.0
+font = ExtResource("1_diq3n")
+font_size = 48
+font_color = Color(1, 0.21568628, 0.18431373, 1)
+outline_size = 8
+outline_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_iq8cv"]
+line_spacing = 0.0
+font = ExtResource("1_diq3n")
+font_size = 48
+font_color = Color(0.31501257, 0.652458, 0.28137186, 1)
+outline_size = 8
+outline_color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="GameUI" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_81r78")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Score" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "000"
+label_settings = SubResource("LabelSettings_81r78")
+
+[node name="GameOver" type="Label" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Game over"
+label_settings = SubResource("LabelSettings_556m7")
+
+[node name="PressSpace" type="Label" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Press space"
+label_settings = SubResource("LabelSettings_iq8cv")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_556m7")
+volume_db = -2.019
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

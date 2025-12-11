@@ -1,0 +1,141 @@
+[gd_scene load_steps=13 format=3 uid="uid://cxt5x3kdbarw8"]
+
+[ext_resource type="Script" uid="uid://b3kvddkptsg4d" path="res://Scenes/Main/main.gd" id="1_aw1lf"]
+[ext_resource type="Texture2D" uid="uid://cssciw0r4v7j7" path="res://Assets/background/sky.png" id="1_cmk6n"]
+[ext_resource type="Texture2D" uid="uid://cgtkr3cysfots" path="res://icon.svg" id="1_p8rbg"]
+[ext_resource type="FontFile" uid="uid://dhunynepiqid2" path="res://Assets/fonts/LuckiestGuy-Regular.ttf" id="2_i3fi7"]
+[ext_resource type="LabelSettings" uid="uid://dy4ngwa0x5ten" path="res://Resources/RedLabel96px.tres" id="2_o8wgc"]
+[ext_resource type="LabelSettings" uid="uid://bbuq8y3ca5d4v" path="res://Resources/RedLabel24px.tres" id="4_w20t6"]
+[ext_resource type="AudioStream" uid="uid://c2pelm23yqrl3" path="res://Assets/audio/bgm_menu.mp3" id="6_w20t6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aw1lf"]
+line_spacing = 0.0
+font = ExtResource("2_i3fi7")
+font_size = 40
+font_color = Color(0.78431374, 0.99607843, 0.98039216, 1)
+outline_size = 8
+outline_color = Color(0.33741426, 0.33741426, 0.33741426, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5s61s"]
+line_spacing = 0.0
+font = ExtResource("2_i3fi7")
+font_size = 24
+font_color = Color(1, 0.44705883, 0.019607844, 1)
+outline_size = 8
+
+[sub_resource type="Animation" id="Animation_w20t6"]
+resource_name = "Flashing"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/PressPlay:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.100000024, 0.3, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.41960785), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_aw1lf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/PressPlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5s61s"]
+_data = {
+&"Flashing": SubResource("Animation_w20t6"),
+&"RESET": SubResource("Animation_aw1lf")
+}
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aw1lf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 479.0
+offset_bottom = 853.0
+texture = ExtResource("1_cmk6n")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Title" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "FLAPPY
+PLANE"
+label_settings = ExtResource("2_o8wgc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PressPlay" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Press SPACE
+To Play"
+label_settings = SubResource("LabelSettings_aw1lf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScoreNumber" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "000"
+label_settings = ExtResource("4_w20t6")
+vertical_alignment = 1
+
+[node name="HighScore" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "High score"
+label_settings = SubResource("LabelSettings_5s61s")
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(234, 330)
+texture = ExtResource("1_p8rbg")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_w20t6")
+volume_db = -10.097
+autoplay = true
+parameters/looping = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5s61s")
+}
+autoplay = "Flashing"

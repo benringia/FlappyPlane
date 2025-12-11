@@ -1,0 +1,28 @@
+extends Node
+
+const SCORE_PATHS: String = "user://flappyscore.res"
+
+
+var high_score: int = 0:
+	get:
+		return high_score
+	set(value):
+		if value > high_score:
+			high_score = value
+			save_high_score()
+			
+			
+func _ready() -> void:
+	load_high_score()
+			
+func load_high_score() -> void:
+	if ResourceLoader.exists(SCORE_PATHS):
+		var hsr: HighScoreResource = load(SCORE_PATHS)
+		if hsr: high_score = hsr.high_score
+	
+	
+
+func save_high_score() -> void:
+	var hsr: HighScoreResource = HighScoreResource.new()
+	hsr.high_score = high_score
+	ResourceSaver.save(hsr, SCORE_PATHS)
