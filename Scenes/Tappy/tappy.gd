@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Tappy
+
 var _gravity: float = ProjectSettings.get("physics/2d/default_gravity")
 var _jumped: bool = false
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
